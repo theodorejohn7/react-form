@@ -4,9 +4,58 @@ import Box from "@mui/material/Box";
 import TextField from "@mui/material/TextField";
 import Card from "@mui/material/Card";
 import Typography from "@mui/material/Typography";
+import {useRef, useState} from 'react';
+
+const isEmpty = value => value.trim().length === '';
+const isSixChars = value =>value.trim().length === 5;
+
 
 function Login() {
+
+    const [formInputsValidity, setFormInputsValidity] = useState({
+
+        name : true,
+        password: true
+    });
+
+
+
+const nameInputRef=useRef();
+const passwordInputRef=useRef();
+
+const confirmHandler = (event) => {
+    event.preventDefault();
+    
+    const enteredName = nameInputRef.current.value;
+
+    console.log(enteredName);
+    const enteredPassword = passwordInputRef.current.value;
+
+    const enteredNameIsValid = !isEmpty(enteredName);
+    const enteredPasswordIsValid = !isEmpty(enteredPassword);
+
+setFormInputsValidity({
+    name : enteredNameIsValid,
+    password : enteredPasswordIsValid
+});
+
+
+    const formIsValid = enteredNameIsValid &&enteredPasswordIsValid;
+
+
+
+    if(!formIsValid)
+    {
+        return;
+    }
+
+
+};
+
+
+
   return (
+      <form   onSubmit={confirmHandler}>
     <div
       className="App"
       style={{
@@ -58,7 +107,9 @@ function Login() {
             margin="dense"
             required
             variant="filled"
+            ref={nameInputRef}
           />
+
           <TextField
             sx={{
               bgcolor: "white",
@@ -73,9 +124,12 @@ function Login() {
             margin="dense"
             variant="filled"
             type="password"
+            ref={passwordInputRef}
             autoComplete="current-password"
           />
 
+{formInputsValidity.name &&
+            <span>Enter a valid name</span>}
           <Box
             sx={{
               display: "flex",
@@ -86,9 +140,11 @@ function Login() {
               borderRadius: 1,
             }}
           >
+
             <Button
               variant="contained"
               margin="dense"
+              type='submit'
               sx={{
                 boxShadow: 20,
                 justifyContent: "center",
@@ -97,10 +153,14 @@ function Login() {
             >
               Login
             </Button>
+
           </Box>
         </Box>
+      
       </Card>
+      
     </div>
+    </form>
   );
 }
 
