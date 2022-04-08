@@ -26,7 +26,6 @@ function Register() {
     console.log(e.target);
     const { name, value } = e.target;
     setFormValues({ ...formValues, [name]: value });
-
     // console.log(formValues);
   }
 
@@ -179,7 +178,6 @@ function Register() {
               />
 
             </Box>
-            <span>{formErrors.firstname}</span>
 
             <Box
               sx={{
@@ -195,6 +193,8 @@ function Register() {
                 borderRadius: 1,
               }}
             >
+            <span>{formErrors.firstname}</span>
+
               <TextField
                 sx={{
                   borderRadius: 1,
@@ -351,7 +351,11 @@ function Register() {
               />
 
             </Box>
-            <span>{formErrors.pincode}</span>
+
+            <Typography variant="h7" component="legend" sx={{ color: "black" , textAlign: 'right'}}>
+            {formErrors.pincode}
+            </Typography>
+            {/* <span >{formErrors.pincode}</span> */}
 
             {/* //Register Button */}
             <Box
@@ -364,6 +368,7 @@ function Register() {
                 borderRadius: 1,
               }}
             >
+
               <Button
                 variant="filled"
                 margin="dense"
